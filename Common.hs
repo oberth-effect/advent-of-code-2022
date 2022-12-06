@@ -3,6 +3,7 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 
 module Common where
+
 -- src: https://gist.github.com/jiribenes/7fefdcbebfe6451915014732c825423c
 
 import Debug.Trace
@@ -24,9 +25,9 @@ runProblem path p = do
 
   case maybeResult of
     Just result -> putStrLn result
-    Nothing     -> putStrLn "ohno, error!"
+    Nothing -> putStrLn "ohno, error!"
 
 eitherToMaybe :: Either e a -> Maybe a
 eitherToMaybe = \case
-  Left  err -> Nothing
-  Right xs  -> Just xs
+  Left err -> Nothing
+  Right xs -> Just xs

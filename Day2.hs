@@ -44,13 +44,13 @@ match :: (String, String) -> Maybe (RPS, RPS)
 match = bitraverse parseOppo parseMine
 
 score :: (RPS, RPS) -> Int
-score (x, y) = (fromEnum y + 1) + ((fromEnum y - fromEnum x + 1) `mod` 3) * 3
+score (x, y) = fromEnum y + 1 + (fromEnum y - fromEnum x + 1) `mod` 3 * 3
 
 score2 :: (RPS, RPS) -> Int
 score2 (x, y) = case y of
-  Rock -> (fromEnum $ prev x) + 1
-  Paper -> (fromEnum x) + 1 + 3
-  Scissors -> (fromEnum $ next x) + 1 + 6
+  Rock -> fromEnum (prev x) + 1
+  Paper -> fromEnum x + 1 + 3
+  Scissors -> fromEnum (next x) + 1 + 6
 
 day2 :: Difficulty -> Problem [(RPS, RPS)] Int
 day2 diff =

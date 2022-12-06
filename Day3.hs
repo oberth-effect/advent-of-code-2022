@@ -1,10 +1,10 @@
 module Day3 where
 
 import Common
-import Text.Read (readMaybe)
 import Data.Char
 import Data.List
 import Data.List.Split (chunksOf)
+import Text.Read (readMaybe)
 
 priority :: Char -> Int
 priority c
@@ -12,7 +12,7 @@ priority c
   | otherwise = fromEnum c - fromEnum 'A' + 27
 
 splitList :: [a] -> ([a], [a])
-splitList l = splitAt (floor ( fromIntegral (length l) / 2)) l
+splitList l = splitAt (floor (fromIntegral (length l) / 2)) l
 
 linePriority :: String -> Int
 linePriority = priority . head . uncurry intersect . splitList
@@ -21,10 +21,10 @@ listOfGroups :: [String] -> [[String]]
 listOfGroups = chunksOf 3
 
 stringListIntersect :: [String] -> String
-stringListIntersect = foldr intersect (['a'..'z'] ++ ['A'.. 'Z'])
+stringListIntersect = foldr intersect (['a' .. 'z'] ++ ['A' .. 'Z'])
 
 groupP :: [String] -> Int
-groupP =  sum . map (priority . head . stringListIntersect) . listOfGroups
+groupP = sum . map (priority . head . stringListIntersect) . listOfGroups
 
 day3 :: Difficulty -> Problem [String] Int
 day3 diff =
@@ -35,4 +35,3 @@ day3 diff =
         Hard -> Just . groupP,
       printOutput = show
     }
-
