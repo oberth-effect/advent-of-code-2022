@@ -1,8 +1,8 @@
 module Day6 where
 
-import Common
-import Data.List (tails)
-import Data.List.Extra (anySame)
+import           Common
+import           Data.List       (tails)
+import           Data.List.Extra (anySame)
 
 nelems :: Int -> String -> [String]
 nelems n = map (take n) . tails

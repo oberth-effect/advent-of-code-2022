@@ -1,10 +1,10 @@
 module Day1 where
 
-import Common
-import Data.List (sortOn)
-import Data.List.Split (splitOn)
-import Data.Ord (Down (..))
-import Text.Read (readMaybe)
+import           Common
+import           Data.List       (sortOn)
+import           Data.List.Split (splitOn)
+import           Data.Ord        (Down (..))
+import           Text.Read       (readMaybe)
 
 partOne :: [[Integer]] -> Integer
 partOne = maximum . map sum

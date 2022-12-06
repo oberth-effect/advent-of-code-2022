@@ -2,21 +2,21 @@
 
 module Day5 where
 
-import Common
-import Control.Monad
-import Data.Function
-import Data.List
-import Data.List.Split
-import Data.Maybe
-import Data.Void
-import Text.Megaparsec
-import Text.Megaparsec.Char
+import           Common
+import           Control.Monad
+import           Data.Function
+import           Data.List
+import           Data.List.Split
+import           Data.Maybe
+import           Data.Void
+import           Text.Megaparsec
+import           Text.Megaparsec.Char
 import qualified Text.Megaparsec.Char.Lexer as L
 
 data Instruction = Instruction
   { icount :: Int,
-    ifrom :: Int,
-    ito :: Int
+    ifrom  :: Int,
+    ito    :: Int
   }
   deriving (Eq, Show, Ord)
 
@@ -56,7 +56,7 @@ parseInstructions =
       <*> ("to" *> spaceChar *> L.decimal)
 
 data Task = Task
-  { wharf :: Wharf,
+  { wharf        :: Wharf,
     instructions :: [Instruction]
   }
   deriving (Eq, Show, Ord)

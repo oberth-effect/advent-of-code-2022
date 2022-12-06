@@ -1,37 +1,37 @@
 module Day2 where
 
-import Common
-import Control.Monad
-import Data.Bitraversable (Bitraversable (bitraverse))
-import Data.List.Split (splitOn)
-import Data.Maybe (fromMaybe, mapMaybe)
-import Text.Read (readMaybe)
+import           Common
+import           Control.Monad
+import           Data.Bitraversable (Bitraversable (bitraverse))
+import           Data.List.Split    (splitOn)
+import           Data.Maybe         (fromMaybe, mapMaybe)
+import           Text.Read          (readMaybe)
 
 data RPS = Rock | Paper | Scissors deriving (Show, Enum)
 
 next :: RPS -> RPS
 next Scissors = Rock
-next a = succ a
+next a        = succ a
 
 prev :: RPS -> RPS
 prev Rock = Scissors
-prev a = pred a
+prev a    = pred a
 
 parseOppo :: String -> Maybe RPS
 parseOppo "A" = Just Rock
 parseOppo "B" = Just Paper
 parseOppo "C" = Just Scissors
-parseOppo _ = Nothing
+parseOppo _   = Nothing
 
 parseMine :: String -> Maybe RPS
 parseMine "X" = Just Rock
 parseMine "Y" = Just Paper
 parseMine "Z" = Just Scissors
-parseMine _ = Nothing
+parseMine _   = Nothing
 
 listToPair :: [a] -> Maybe (a, a)
-listToPair [] = Nothing
-listToPair [x] = Nothing
+listToPair []       = Nothing
+listToPair [x]      = Nothing
 listToPair (x : xs) = Just (x, head xs)
 
 parseLines :: String -> Maybe [(String, String)]
@@ -48,8 +48,8 @@ score (x, y) = fromEnum y + 1 + (fromEnum y - fromEnum x + 1) `mod` 3 * 3
 
 score2 :: (RPS, RPS) -> Int
 score2 (x, y) = case y of
-  Rock -> fromEnum (prev x) + 1
-  Paper -> fromEnum x + 1 + 3
+  Rock     -> fromEnum (prev x) + 1
+  Paper    -> fromEnum x + 1 + 3
   Scissors -> fromEnum (next x) + 1 + 6
 
 day2 :: Difficulty -> Problem [(RPS, RPS)] Int

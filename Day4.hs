@@ -1,9 +1,9 @@
 module Day4 where
 
-import Common
-import Data.Void
-import Text.Megaparsec
-import Text.Megaparsec.Char
+import           Common
+import           Data.Void
+import           Text.Megaparsec
+import           Text.Megaparsec.Char
 import qualified Text.Megaparsec.Char.Lexer as L
 
 type Elf = (Int, Int)

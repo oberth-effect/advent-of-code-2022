@@ -1,10 +1,10 @@
 module Day3 where
 
-import Common
-import Data.Char
-import Data.List
-import Data.List.Split (chunksOf)
-import Text.Read (readMaybe)
+import           Common
+import           Data.Char
+import           Data.List
+import           Data.List.Split (chunksOf)
+import           Text.Read       (readMaybe)
 
 priority :: Char -> Int
 priority c
