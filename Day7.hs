@@ -50,9 +50,7 @@ parseCommand =
 
 type Path = [String]
 
-type Dir = ([Path], Int)
-
-type Fs = M.Map Path Dir
+type Fs = M.Map Path Int
 
 movePath :: Command -> Path -> Path
 movePath CdRoot _      = ["/"]
@@ -60,25 +58,24 @@ movePath CdUp (p : ps) = ps
 movePath (CdDir d) p   = d : p
 movePath _ p           = p
 
-resolveLsEntry :: Path -> LsOutput -> (Path, Int)
-resolveLsEntry _ (LsFile size _) = ([], size)
-resolveLsEntry pth (LsDir n)     = (n : pth, 0)
-
-resolveDir :: Path -> [LsOutput] -> Dir
-resolveDir p entries = foldl foldDir ([], 0) (map (resolveLsEntry p) entries)
+localSize :: [LsOutput] -> Int
+localSize = foldl' countFiles 0
   where
-    foldDir :: Dir -> (Path, Int) -> Dir
-    foldDir (pths, size) (p, s) = (filter (not . null) (p : pths), s + size)
+    countFiles :: Int -> LsOutput -> Int
+    countFiles buff (LsFile size _) = buff + size
+    countFiles buff _ = buff
 
 resolveCommand :: (Path, Fs) -> Command -> (Path, Fs)
-resolveCommand (pth, fs) (Ls lscont) = (pth, M.insert pth (resolveDir pth lscont) fs)
+resolveCommand (pth, fs) (Ls lscont) = (pth, M.insert pth (localSize lscont) fs)
 resolveCommand (pth, fs) cmd = (movePath cmd pth, fs)
 
 runCommands :: [Command] -> (Path, Fs)
 runCommands = foldl resolveCommand ([], M.empty)
 
 folderSize :: Fs -> Path -> Int
-folderSize fs pth = snd (fs M.! pth) + sum (map (folderSize fs) (fst (fs M.! pth)))
+folderSize fs pth = fs M.! pth + subfolderSizes
+  where
+    subfolderSizes = sum [fs M.! p | p <- M.keys fs, pth `elem` tails p, p/=pth]
 
 sizes :: Fs -> [Int]
 sizes fs = map (folderSize fs) (M.keys fs)
