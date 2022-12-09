@@ -1,7 +1,7 @@
 module Day8 where
 
 import           Common
-import           Control.Arrow   (Arrow (arr))
+import           Control.Applicative
 import           Data.Char
 import           Data.List
 import           Data.List.HT

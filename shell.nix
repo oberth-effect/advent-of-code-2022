@@ -2,7 +2,6 @@
 
 pkgs.mkShell {
   nativeBuildInputs = [
-    pkgs.stylish-haskell
     (pkgs.haskell.packages.ghc902.ghcWithPackages (p:
       with p; [
         megaparsec
@@ -12,6 +11,7 @@ pkgs.mkShell {
         cabal-install
         hoogle
         apply-refact
+        stylish-haskell
       ]))
   ];
 }
