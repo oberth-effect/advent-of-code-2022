@@ -55,13 +55,13 @@ move ch = do
   let newH = moveH ch (head kts)
   let newT = moveTail (newH : tail kts)
   St.put (newH : newT)
-  return (last newT)
+  pure (last newT)
 
 moveN :: (Char, Int) -> St.State MoveState [Knot]
 moveN (ch, n) = replicateM n (move ch)
 
 executeInstructions :: [(Char, Int)] -> St.State MoveState [[Knot]]
-executeInstructions = mapM moveN
+executeInstructions = traverse moveN
 
 runSnake :: Int -> [(Char, Int)] -> Int
 runSnake len ins = length $ S.fromList $ concat $ St.evalState (executeInstructions ins) (startState len)
