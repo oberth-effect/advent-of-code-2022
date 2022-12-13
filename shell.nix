@@ -12,6 +12,7 @@ pkgs.mkShell {
         hoogle
         apply-refact
         stylish-haskell
+        fgl
       ]))
   ];
 }
