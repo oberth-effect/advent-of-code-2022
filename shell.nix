@@ -13,6 +13,7 @@ pkgs.mkShell {
         apply-refact
         stylish-haskell
         fgl
+        containers
       ]))
   ];
 }
